@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-poppins), sans-serif;
+  --font-heading: var(--font-poppins), sans-serif;
+
+  --color-brand-primary: #0B1F3A; /* Deep Royal Blue */
+  --color-brand-accent: #E87C24; /* Vibrant Orange/Gold */
+  --color-brand-accent-hover: #D66D1B;
+  --color-brand-light: #FFFFFF; /* Pure White */
+  
+  --color-brand-primary-light: #16325B;
+  --color-brand-primary-dark: #050F1D;
+  
+  --color-brand-accent-light: #F59B4E;
+  --color-brand-accent-dark: #C25B12;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-brand-light);
+  color: var(--color-brand-primary);
+}
