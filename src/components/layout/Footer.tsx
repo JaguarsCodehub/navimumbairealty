@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,7 +10,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Col */}
           <div className="space-y-6">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="flex items-center gap-3">
+              <Image 
+                src="/logo.png" 
+                alt="Navi Mumbai Realty" 
+                width={180} 
+                height={50} 
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
               <div className="font-heading font-bold text-2xl text-white leading-none">
                 Navi Mumbai <br />
                 <span className="text-[var(--color-brand-accent)]">Realty</span>
@@ -61,11 +69,11 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-[var(--color-brand-accent)] shrink-0 mt-1" size={18} />
-                <span className="text-sm leading-relaxed">123 Business Center, Sector 17, Vashi, Navi Mumbai, Maharashtra 400703</span>
+                <span className="text-sm leading-relaxed">2443+H6M, Sector 17, Khanda Colony, Panvel, Maharashtra 410206</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-[var(--color-brand-accent)] shrink-0" size={18} />
-                <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
+                <a href="tel:+918692951226" className="hover:text-white transition-colors">+91 86929 51226</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-[var(--color-brand-accent)] shrink-0" size={18} />

@@ -36,7 +36,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 font-medium mb-1">Call Us Directly</div>
-                  <a href="tel:+919876543210" className="text-[var(--color-brand-primary)] font-semibold text-lg hover:text-[var(--color-brand-accent)] transition-colors">+91 98765 43210</a>
+                  <a href="tel:+918692951226" className="text-[var(--color-brand-primary)] font-semibold text-lg hover:text-[var(--color-brand-accent)] transition-colors">+91 86929 51226</a>
                 </div>
               </motion.div>
 
@@ -68,7 +68,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 font-medium mb-1">Office Address</div>
-                  <div className="text-[var(--color-brand-primary)] font-semibold leading-relaxed">123 Business Center, Sector 17,<br/>Vashi, Navi Mumbai, Maharashtra 400703</div>
+                  <div className="text-[var(--color-brand-primary)] font-semibold leading-relaxed">2443+H6M, Sector 17,<br/>Khanda Colony, Panvel, Maharashtra 410206</div>
                 </div>
               </motion.div>
             </div>
@@ -100,7 +100,7 @@ export default function Contact() {
               
               <div className="space-y-1.5">
                 <label htmlFor="phone" className="text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="tel" id="phone" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" placeholder="+91 98765 43210" />
+                <input type="tel" id="phone" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" placeholder="+91 86929 51226" />
               </div>
 
               <div className="space-y-1.5">
@@ -108,11 +108,15 @@ export default function Contact() {
                 <select id="interest" defaultValue="" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50 text-gray-600">
                   <option value="" disabled>Select a project</option>
                   <option value="vistara-world">Vistara World</option>
+                  <option value="vistara-garden">Vistara Garden</option>
                   <option value="dream-city">Dream City</option>
                   <option value="vrundavan-residency">Vrundavan Residency</option>
                   <option value="nandanvan-heights">Nandanvan Heights</option>
                   <option value="urban-rain-forest">Urban Rain Forest</option>
                   <option value="jai-malhar-apartments">Jai Malhar Apartments</option>
+                  <option value="gokul-heights">Gokul Heights</option>
+                  <option value="bright-enclave">Bright Enclave</option>
+                  <option value="shanmukhi">Shanmukhi</option>
                   <option value="general">General Inquiry</option>
                 </select>
               </div>

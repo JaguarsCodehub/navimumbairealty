@@ -6,13 +6,32 @@ import Link from 'next/link';
 import { projects } from '@/data/projects';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { Button } from '@/components/ui/Button';
-import { MapPin, ArrowLeft, CheckCircle2, Phone, Download } from 'lucide-react';
+import { Button, cn } from '@/components/ui/Button';
+import { MapPin, ArrowLeft, CheckCircle2, Phone, Download, ChevronRight, ChevronLeft, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import * as motion from 'framer-motion/client';
+import Image from 'next/image';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
+  const [activeImage, setActiveImage] = React.useState(0);
+  const [scale, setScale] = React.useState(1);
+
+  React.useEffect(() => {
+    if (project?.image) {
+      setActiveImage(0);
+      setScale(1);
+    }
+  }, [project]);
+
+  const handleZoomIn = () => setScale(prev => Math.min(prev + 0.25, 3));
+  const handleZoomOut = () => setScale(prev => Math.max(prev - 0.25, 1));
+  const handleResetZoom = () => setScale(1);
+
+  const onImageChange = (index: number) => {
+    setActiveImage(index);
+    setScale(1);
+  };
 
   if (!project) {
     return (
@@ -46,20 +65,97 @@ export default function ProjectDetail() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100"
               >
-                <div className="h-[400px] md:h-[500px] relative">
-                  <img 
-                    src={project.image} 
-                    alt={project.name} 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                     <span className="px-4 py-1.5 bg-[var(--color-brand-primary)]/90 backdrop-blur-md text-[#fcd34d] text-sm font-semibold rounded-full shadow-lg border border-[#fcd34d]/20 uppercase tracking-widest">
+                <div className="h-[400px] md:h-[600px] relative group bg-gray-900 overflow-hidden">
+                  <motion.div 
+                    className="w-full h-full relative"
+                    animate={{ scale }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  >
+                    <Image 
+                      src={project.gallery && project.gallery.length > 0 ? (activeImage === 0 ? project.image : project.gallery[activeImage - 1]) : project.image} 
+                      alt={project.name} 
+                      fill
+                      className={cn(
+                        "object-contain transition-transform duration-500",
+                        project.rotateGallery && "-rotate-90 scale-[1.4]"
+                      )}
+                    />
+                  </motion.div>
+                  
+                  <div className="absolute top-4 right-4 z-10 flex gap-2">
+                    <button 
+                      onClick={handleZoomIn}
+                      className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800 transition-colors shadow-lg border border-white/10"
+                      title="Zoom In"
+                    >
+                      <ZoomIn size={20} />
+                    </button>
+                    <button 
+                      onClick={handleZoomOut}
+                      className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800 transition-colors shadow-lg border border-white/10"
+                      title="Zoom Out"
+                    >
+                      <ZoomOut size={20} />
+                    </button>
+                    <button 
+                      onClick={handleResetZoom}
+                      className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800 transition-colors shadow-lg border border-white/10"
+                      title="Reset Zoom"
+                    >
+                      <RotateCcw size={20} />
+                    </button>
+                  </div>
+                  <div className="absolute top-4 left-4 z-10">
+                     <span className="px-4 py-1.5 bg-[var(--color-brand-primary)] text-[#fcd34d] text-sm font-semibold rounded-full shadow-lg border border-[#fcd34d]/20 uppercase tracking-widest">
                       Premium
                     </span>
                   </div>
+
+                  {project.gallery && project.gallery.length > 0 && (
+                    <>
+                      <button 
+                        onClick={() => onImageChange(activeImage === 0 ? project.gallery!.length : activeImage - 1)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-800"
+                      >
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button 
+                        onClick={() => onImageChange(activeImage === project.gallery!.length ? 0 : activeImage + 1)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-800"
+                      >
+                        <ChevronRight size={24} />
+                      </button>
+                    </>
+                  )}
                 </div>
+
+                {project.gallery && project.gallery.length > 0 && (
+                   <div className="p-4 bg-gray-50 flex gap-3 overflow-x-auto border-b border-gray-100 scrollbar-hide">
+                      <button 
+                        onClick={() => onImageChange(0)}
+                        className={cn(
+                          "relative min-w-[100px] h-[70px] rounded-lg overflow-hidden border-2 transition-all shrink-0",
+                          activeImage === 0 ? "border-[var(--color-brand-accent)] shadow-md" : "border-transparent opacity-60 hover:opacity-100"
+                        )}
+                      >
+                        <Image src={project.image} alt="Preview 0" fill className="object-cover" />
+                      </button>
+                      {project.gallery.map((img, idx) => (
+                        <button 
+                          key={idx}
+                          onClick={() => onImageChange(idx + 1)}
+                          className={cn(
+                            "relative min-w-[100px] h-[70px] rounded-lg overflow-hidden border-2 transition-all shrink-0",
+                            activeImage === idx + 1 ? "border-[var(--color-brand-accent)] shadow-md" : "border-transparent opacity-60 hover:opacity-100"
+                          )}
+                        >
+                          <Image src={img} alt={`Preview ${idx + 1}`} fill className="object-cover" />
+                        </button>
+                      ))}
+                   </div>
+                )}
                 
                 <div className="p-8 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
@@ -117,7 +213,7 @@ export default function ProjectDetail() {
                     <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="Your Name" />
                   </div>
                   <div>
-                    <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="Phone Number" />
+                    <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="+91 86929 51226" />
                   </div>
                   <div>
                     <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="Email Address" />
@@ -129,7 +225,7 @@ export default function ProjectDetail() {
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-gray-100 space-y-3">
-                  <a href="tel:+919876543210" className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] font-medium hover:bg-[var(--color-brand-primary)]/10 transition-colors">
+                  <a href="tel:+918692951226" className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] font-medium hover:bg-[var(--color-brand-primary)]/10 transition-colors">
                     <Phone size={18} /> Call Us Now
                   </a>
                   <button className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-colors">
