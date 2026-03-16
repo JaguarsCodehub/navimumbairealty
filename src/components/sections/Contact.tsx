@@ -3,10 +3,45 @@
 import React from 'react';
 import { SectionTitle } from '../ui/SectionTitle';
 import { Button } from '../ui/Button';
-import { Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Phone, Mail, MessageCircle, MapPin, CheckCircle, Loader2 } from 'lucide-react';
 import * as motion from 'framer-motion/client';
+import { submitToGoogleSheets } from '@/utils/formSubmit';
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    interest: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const result = await submitToGoogleSheets({
+      ...formData,
+      source: 'Main Contact Form'
+    });
+
+    if (result.success) {
+      setIsSuccess(true);
+      setFormData({ firstName: '', lastName: '', phone: '', interest: '' });
+      setTimeout(() => setIsSuccess(false), 5000);
+    } else {
+      alert("Something went wrong. Please try again or call us directly.");
+    }
+    
+    setIsSubmitting(false);
+  };
+
   return (
     <section id="contact" className="py-24 bg-white relative">
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
@@ -86,26 +121,56 @@ export default function Contact() {
             
             <h3 className="text-2xl font-heading font-semibold text-[var(--color-brand-primary)] mb-6">Book a Site Visit</h3>
             
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
                   <label htmlFor="firstName" className="text-sm font-medium text-gray-700">First Name</label>
-                  <input type="text" id="firstName" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" placeholder="John" />
+                  <input 
+                    type="text" 
+                    id="firstName" 
+                    required
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" 
+                    placeholder="John" 
+                  />
                 </div>
                 <div className="space-y-1.5">
                   <label htmlFor="lastName" className="text-sm font-medium text-gray-700">Last Name</label>
-                  <input type="text" id="lastName" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" placeholder="Doe" />
+                  <input 
+                    type="text" 
+                    id="lastName" 
+                    required
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" 
+                    placeholder="Doe" 
+                  />
                 </div>
               </div>
               
               <div className="space-y-1.5">
                 <label htmlFor="phone" className="text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="tel" id="phone" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" placeholder="+91 86929 51226" />
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  required
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50" 
+                  placeholder="+91 86929 51226" 
+                />
               </div>
 
               <div className="space-y-1.5">
                 <label htmlFor="interest" className="text-sm font-medium text-gray-700">Project of Interest</label>
-                <select id="interest" defaultValue="" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50 text-gray-600">
+                <select 
+                  id="interest" 
+                  required
+                  value={formData.interest}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] transition-all bg-gray-50/50 text-gray-600"
+                >
                   <option value="" disabled>Select a project</option>
                   <option value="vistara-world">Vistara World</option>
                   <option value="vistara-garden">Vistara Garden</option>
@@ -121,8 +186,25 @@ export default function Contact() {
                 </select>
               </div>
 
-              <Button size="lg" className="w-full mt-4">
-                Request Callback
+              <Button 
+                size="lg" 
+                className="w-full mt-4" 
+                type="submit"
+                disabled={isSubmitting || isSuccess}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : isSuccess ? (
+                  <>
+                    <CheckCircle className="mr-2 h-4 w-4" />
+                    Message Sent!
+                  </>
+                ) : (
+                  "Request Callback"
+                )}
               </Button>
 
               <div className="flex items-center justify-center pt-2 gap-2 text-sm text-gray-500">

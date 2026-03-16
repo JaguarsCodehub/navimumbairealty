@@ -7,15 +7,50 @@ import { projects } from '@/data/projects';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button, cn } from '@/components/ui/Button';
-import { MapPin, ArrowLeft, CheckCircle2, Phone, Download, ChevronRight, ChevronLeft, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { MapPin, ArrowLeft, CheckCircle2, Phone, Download, ChevronRight, ChevronLeft, ZoomIn, ZoomOut, RotateCcw, Loader2, CheckCircle } from 'lucide-react';
 import * as motion from 'framer-motion/client';
 import Image from 'next/image';
+import { submitToGoogleSheets } from '@/utils/formSubmit';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find(p => p.slug === slug);
   const [activeImage, setActiveImage] = React.useState(0);
   const [scale, setScale] = React.useState(1);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    name: '',
+    phone: '',
+    email: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { type, value, placeholder } = e.target;
+    const field = type === 'text' ? 'name' : type === 'tel' ? 'phone' : 'email';
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const result = await submitToGoogleSheets({
+      ...formData,
+      interest: project?.name,
+      source: `Project Detail: ${project?.name}`
+    });
+
+    if (result.success) {
+      setIsSuccess(true);
+      setFormData({ name: '', phone: '', email: '' });
+      setTimeout(() => setIsSuccess(false), 5000);
+    } else {
+      alert("Something went wrong. Please try again or call us directly.");
+    }
+    
+    setIsSubmitting(false);
+  };
 
   React.useEffect(() => {
     if (project?.image) {
@@ -208,19 +243,57 @@ export default function ProjectDetail() {
                 <h3 className="text-2xl font-heading font-semibold text-[var(--color-brand-primary)] mb-2">Interested in {project.name}?</h3>
                 <p className="text-gray-500 text-sm mb-6">Drop your details below and our experts will get in touch with you shortly.</p>
                 
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
-                    <input type="text" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="Your Name" />
+                    <input 
+                      type="text" 
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" 
+                      placeholder="Your Name" 
+                    />
                   </div>
                   <div>
-                    <input type="tel" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="+91 86929 51226" />
+                    <input 
+                      type="tel" 
+                      required
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" 
+                      placeholder="+91 86929 51226" 
+                    />
                   </div>
                   <div>
-                    <input type="email" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" placeholder="Email Address" />
+                    <input 
+                      type="email" 
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-accent)]/50 focus:border-[var(--color-brand-accent)] bg-gray-50/50" 
+                      placeholder="Email Address" 
+                    />
                   </div>
                   
-                  <Button size="lg" className="w-full mt-2">
-                    Request Pricing & Details
+                  <Button 
+                    size="lg" 
+                    className="w-full mt-2"
+                    type="submit"
+                    disabled={isSubmitting || isSuccess}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : isSuccess ? (
+                      <>
+                        <CheckCircle className="mr-2 h-4 w-4" />
+                        Request Sent!
+                      </>
+                    ) : (
+                      "Request Pricing & Details"
+                    )}
                   </Button>
                 </form>
 
