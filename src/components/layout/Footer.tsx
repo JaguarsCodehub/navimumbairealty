@@ -44,22 +44,26 @@ export default function Footer() {
             <h4 className="text-white font-heading font-semibold mb-6 text-lg">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link href="/" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Home</Link></li>
-              <li><Link href="#why-us" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">About Us</Link></li>
-              <li><Link href="#projects" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Projects in Panvel</Link></li>
-              <li><Link href="#why-panvel" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Why Invest</Link></li>
-              <li><Link href="#faq" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">FAQs</Link></li>
+              <li><Link href="/#why-us" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">About Us</Link></li>
+              <li><Link href="/#projects" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Projects</Link></li>
+              <li><Link href="/blog" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block font-semibold text-white">Insight Blog</Link></li>
+              <li><Link href="/#why-panvel" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Why Invest</Link></li>
+              <li><Link href="/#faq" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">FAQs</Link></li>
             </ul>
           </div>
 
           {/* Projects */}
           <div>
-            <h4 className="text-white font-heading font-semibold mb-6 text-lg">Featured Projects</h4>
+            <h4 className="text-white font-heading font-semibold mb-6 text-lg">Features Projects</h4>
             <ul className="space-y-3">
               <li><Link href="/projects/vistara-world" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Vistara World</Link></li>
               <li><Link href="/projects/dream-city" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Dream City</Link></li>
               <li><Link href="/projects/vrundavan-residency" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Vrundavan Residency</Link></li>
-              <li><Link href="/projects/nandanvan-heights" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Nandanvan Heights</Link></li>
-              <li><Link href="/projects/urban-rain-forest" className="hover:text-[var(--color-brand-accent)] transition-colors inline-block">Urban Rain Forest</Link></li>
+            </ul>
+            <h4 className="text-white font-heading font-semibold mt-8 mb-4 text-lg">Latest Insights</h4>
+            <ul className="space-y-3">
+              <li><Link href="/blog/navi-mumbai-property-price-guide-2026" className="text-sm hover:text-[var(--color-brand-accent)] transition-colors inline-block">2026 Price Guide</Link></li>
+              <li><Link href="/blog/new-projects-under-80-lakhs" className="text-sm hover:text-[var(--color-brand-accent)] transition-colors inline-block">Homes Under ₹80L</Link></li>
             </ul>
           </div>
 

@@ -72,22 +72,41 @@ export default function Hero() {
 
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="mt-20 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl"
+            className="mt-16 pt-8 border-t border-white/20"
           >
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">100%</div>
-              <div className="text-sm text-[var(--color-brand-accent)] tracking-wider uppercase font-medium">Timely Delivery</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white mb-1">Trusted</div>
-              <div className="text-sm text-[var(--color-brand-accent)] tracking-wider uppercase font-medium">By 10,000+ Families</div>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <div className="text-3xl font-bold text-white mb-1">Verified</div>
-              <div className="text-sm text-[var(--color-brand-accent)] tracking-wider uppercase font-medium">Legal & RERA Approved</div>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Buyer" className="w-10 h-10 rounded-full border-2 border-[var(--color-brand-primary-dark)] object-cover" />
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Buyer" className="w-10 h-10 rounded-full border-2 border-[var(--color-brand-primary-dark)] object-cover" />
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Buyer" className="w-10 h-10 rounded-full border-2 border-[var(--color-brand-primary-dark)] object-cover" />
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Buyer" className="w-10 h-10 rounded-full border-2 border-[var(--color-brand-primary-dark)] object-cover" />
+                  
+                  <div className="w-10 h-10 rounded-full border-2 border-[var(--color-brand-primary-dark)] bg-[var(--color-brand-accent)] flex items-center justify-center text-[10px] font-bold text-white z-10">
+                    +10k
+                  </div>
+                </div>
+                <div>
+                  <div className="flex text-yellow-400 text-lg tracking-widest">★★★★★</div>
+                  <div className="text-xs text-gray-300 font-medium tracking-wide">Trusted by 10,000+ Families</div>
+                </div>
+              </div>
+
+              <div className="h-10 w-px bg-white/20 hidden md:block" />
+
+              <div className="flex items-center gap-8">
+                <div>
+                  <div className="text-2xl font-bold text-white leading-tight">100%</div>
+                  <div className="text-xs text-[var(--color-brand-accent)] tracking-wider uppercase font-medium mt-1">RERA Approved</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-white leading-tight">30+</div>
+                  <div className="text-xs text-[var(--color-brand-accent)] tracking-wider uppercase font-medium mt-1">Top Builders</div>
+                </div>
+              </div>
             </div>
           </motion.div>
           

@@ -21,9 +21,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "#why-us" },
-    { name: "Projects", href: "#projects" },
-    { name: "Why Panvel", href: "#why-panvel" },
+    { name: "Projects", href: "/#projects" },
+    { name: "Blog", href: "/blog" },
+    { name: "About", href: "/#why-us" },
+    { name: "Why Panvel", href: "/#why-panvel" },
   ];
 
   return (
@@ -76,7 +77,9 @@ export default function Navbar() {
                 <Phone size={16} />
                 <span>+91 86929 51226</span>
               </a>
-              <Button size="sm">Book Visit</Button>
+              <Link href="/#contact">
+                <Button size="sm">Book Visit</Button>
+              </Link>
             </div>
           </nav>
 
@@ -112,7 +115,9 @@ export default function Navbar() {
                 <Phone size={18} />
                 <span>+91 86929 51226</span>
               </a>
-            <Button className="w-full">Book Site Visit</Button>
+            <Link href="/#contact" className="w-full block" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button className="w-full">Book Site Visit</Button>
+            </Link>
           </div>
         </div>
       )}

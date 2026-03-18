@@ -7,12 +7,47 @@ import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import WhyPanvel from "@/components/sections/WhyPanvel";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
+import BlogPreview from "@/components/sections/BlogPreview";
 import { MessageCircle } from "lucide-react";
 
 export default function Home() {
+  const schemaOrg = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "RealEstateAgent",
+        "name": "Navi Mumbai Realty",
+        "image": "https://navimumbairealty.com/logo.png",
+        "priceRange": "₹45 Lakhs - ₹3.5 Crores",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sector 17, Khanda Colony",
+          "addressLocality": "Panvel, Navi Mumbai",
+          "addressRegion": "Maharashtra",
+          "postalCode": "410206",
+          "addressCountry": "IN"
+        },
+        "telephone": "+918692951226",
+        "url": "https://navimumbairealty.com"
+      },
+      {
+        "@type": "WebSite",
+        "url": "https://navimumbairealty.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://navimumbairealty.com/projects?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }} />
+
 
       <main className="flex-grow">
         <Hero />
@@ -21,6 +56,7 @@ export default function Home() {
         <FeaturedProjects />
         <WhyPanvel />
         <FAQ />
+        <BlogPreview />
         <Contact />
       </main>
 

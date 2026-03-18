@@ -1,0 +1,82 @@
+# On-page SEO — core pages to build
+Homepage — target: "Navi Mumbai properties" (1.6K/mo)
+H1: "Find Your Dream Property in Navi Mumbai". Title tag ≤60 chars. Meta desc with CTA. Schema: RealEstateAgent + LocalBusiness.
+
+Properties for Sale in Navi Mumbai — target: "properties in navi mumbai for sale" (1.3K/mo)
+
+# Locality landing pages — one per micro-market
+Create dedicated pages for Kharghar, Ulwe, Panvel, Airoli, Taloja, Belapur. Each page targets "[locality] properties navi mumbai". Include map, price range, connectivity info.
+
+# Property listing pages — target: transactional intent
+Create pages like "2 BHK flats in Kharghar", "3 BHK for sale in Panvel". Use structured data (Offer + Property) for rich snippets.
+Each listing needs unique title, meta, schema (Product / RealEstateListing), structured address, price, BHK config, RERA number.
+
+# Blog content clusters — 300–500 words each
+Cluster 1: New launches in Navi Mumbai (target: "new properties in navi mumbai")
+Cluster 2: Investment in Ulwe (target: "ulwe property investment")
+Cluster 3: Kharghar vs Panvel (target: "kharghar vs panvel")
+Cluster 4: How to buy property in Navi Mumbai (target: "how to buy property in navi mumbai")
+Cluster 5: Price trends 2026 (target: "navi mumbai property price trends")
+
+# Technical SEO checklist
+Mobile-first indexing: Ensure responsive design.
+Page speed: Aim for <3s load time (use Core Web Vitals).
+Schema markup: Implement RealEstateAgent, LocalBusiness, Offer, Property.
+XML sitemap + robots.txt: Submit to Google Search Console.
+Canonical tags: Prevent duplicate content issues.
+
+------------------Very Important------------------
+# AEO — Answer Engine Optimisation (Google AI Overviews, Perplexity)
+1
+FAQ pages with schema markup
+Target questions users ask AI: "What is the average property price in Navi Mumbai?", "Is Navi Mumbai a good place to invest?", "Which areas in Navi Mumbai are developing fastest?" — answer each in 40–60 words, add FAQPage schema.
+
+2
+Structured "snippet bait" content
+Format blogs with clear H2 questions + short direct paragraph answers. Google's AI Overview and Perplexity extract these. Example: H2 "How much does a 2BHK cost in Kharghar?" → one-paragraph answer with exact range.
+
+3
+Definition + comparison blocks
+"What is RERA and how does it protect buyers in Navi Mumbai?" — definitional content gets featured snippets. Structure as definition box at top of article.
+
+4
+Numbered lists for process queries
+"Steps to buy property in Navi Mumbai", "Documents needed for home loan in India" — numbered lists get position-zero placements and are cited in AI answers.
+
+BLOG CONTENT CALENDAR:
+- Navi Mumbai Property Price Guide 2025
+Targets: price trends keyword cluster · Linkable asset · AEO ready
+
+- Best Localities in Navi Mumbai to Buy in 2025
+Targets: all locality keywords · Comparison format · Featured snippet bait
+
+- Ulwe vs Panvel: Where Should You Invest in Navi Mumbai?
+Targets: comparison keywords · ROI focus · AEO ready
+
+- How to Buy Property in Navi Mumbai: A Step-by-Step Guide
+Targets: process keywords · Numbered list format · Featured snippet bait
+
+- 2 BHK vs 3 BHK in Navi Mumbai: Which is Better for Families?
+Targets: BHK comparison · Decision-making content · AEO ready
+
+- Complete Guide: Buying Property Near Navi Mumbai Airport
+110/mo keyword direct hit · Long-form · FAQ schema
+
+- How Navi Mumbai Metro Will Impact Property Prices
+News-driven · High shareability · Editorial + backlink target
+
+- Top 10 New Projects in Navi Mumbai Under ₹80 Lakhs
+Direct transactional intent · Listicle format · High CTR from search
+
+- Step-by-Step: How to Buy Property in Navi Mumbai
+Directly from AnswerThePublic data · Process query · AI citation target
+
+
+Blog structure for maximum AEO + SEO value
+1.  Hook — Answer the query in first 100 words (Google reads this for snippets)
+2.  Table of Contents — improves dwell time + helps AI crawlers
+3.  H2 sections as questions — "Why buy in Kharghar?", "What does it cost?"
+4.  Data tables — price ranges by locality (gets featured snippets)
+5.  FAQ section at bottom — with FAQPage schema, min 5 Q&As per post
+6.  CTA — "Browse listings in [locality]" internal link to conversion page
+7.  Author bio — builds E-E-A-T (Experience, Expertise, Authoritativeness, Trust)
