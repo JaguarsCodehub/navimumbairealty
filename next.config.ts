@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'destinationcompress.s3.ap-south-1.amazonaws.com' },
       { protocol: 'https', hostname: 'tpvvishwakarma.com' },
       { protocol: 'https', hostname: 'imagecdn.99acres.com' },
+      { protocol: 'https', hostname: 'images.openai.com' },
+      { protocol: 'https', hostname: 'is1-3.housingcdn.com' },
     ],
   },
   async headers() {
