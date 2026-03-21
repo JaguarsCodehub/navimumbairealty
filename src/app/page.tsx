@@ -17,7 +17,7 @@ export default function Home() {
       {
         "@type": "RealEstateAgent",
         "name": "Navi Mumbai Realty",
-        "image": "https://navimumbairealty.com/logo.png",
+        "image": "https://www.navimumbairealty.co.in/logo.png",
         "priceRange": "₹45 Lakhs - ₹3.5 Crores",
         "address": {
           "@type": "PostalAddress",
@@ -28,14 +28,14 @@ export default function Home() {
           "addressCountry": "IN"
         },
         "telephone": "+918692951226",
-        "url": "https://navimumbairealty.com"
+        "url": "https://www.navimumbairealty.co.in"
       },
       {
         "@type": "WebSite",
-        "url": "https://navimumbairealty.com",
+        "url": "https://www.navimumbairealty.co.in",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://navimumbairealty.com/projects?q={search_term_string}",
+          "target": "https://www.navimumbairealty.co.in/projects?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       }

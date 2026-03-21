@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import * as motion from 'framer-motion/client';
 import { projects } from '@/data/projects';
 import { SectionTitle } from '../ui/SectionTitle';
@@ -42,10 +43,13 @@ export default function FeaturedProjects() {
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-primary-dark)]/80 to-transparent z-10" />
-                <img 
+                <Image 
                   src={project.image} 
                   alt={project.name} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  loading="lazy"
                 />
                 
                 {/* Badges */}
