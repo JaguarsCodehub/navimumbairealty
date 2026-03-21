@@ -10,11 +10,11 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Find Your Dream Property in Navi Mumbai | Navi Mumbai Realty",
-  description: "Discover luxury and affordable residential projects in Panvel, Kharghar, and Ulwe. Get legally verified homes with premium amenities and expert guidance.",
+  title: "Properties in Navi Mumbai | Flats & Apartments for Sale | Navi Mumbai Realty",
+  description: "Browse verified properties in Navi Mumbai — flats, apartments & new projects in Kharghar, Ulwe, Panvel & Airoli. Affordable to luxury. Expert guidance. RERA compliant.",
   openGraph: {
-    title: "Find Your Dream Property in Navi Mumbai",
-    description: "Discover luxury and affordable residential projects in Panvel, Kharghar, and Ulwe.",
+    title: "Properties in Navi Mumbai | Flats & Apartments for Sale",
+    description: "Browse verified properties in Navi Mumbai — flats, apartments & new projects in Kharghar, Ulwe, Panvel & Airoli. Affordable to luxury. Expert guidance. RERA compliant.",
     type: "website",
   }
 };
