@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'imagecdn.99acres.com' },
       { protocol: 'https', hostname: 'images.openai.com' },
       { protocol: 'https', hostname: 'is1-3.housingcdn.com' },
+      { protocol: 'https', hostname: 'media.gettyimages.com' },
     ],
   },
   async headers() {
