@@ -48,7 +48,7 @@ export default function FeaturedProjects() {
         
         {/* Header */}
         <div className="mb-10">
-          <h2 className="text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">Featured Projects in Mumbai</h2>
+          <h2 className="text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">Featured Projects in Navi Mumbai</h2>
           <div className="text-gray-500 text-[15px] flex items-center gap-2">
             Best Projects in Mumbai to explore <button className="text-[#ea580c] font-medium hover:underline text-[14px]">View All</button>
           </div>
