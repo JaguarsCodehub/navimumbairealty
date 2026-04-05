@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-poppins), sans-serif;
-  --font-heading: var(--font-poppins), sans-serif;
+  --font-sans: 'Poppins', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
 
   --color-brand-primary: #0B1F3A; /* Deep Royal Blue */
   --color-brand-accent: #E87C24; /* Vibrant Orange/Gold */
@@ -33,6 +34,15 @@ html {
 body {
   background-color: var(--color-brand-light);
   color: var(--color-brand-primary);
+  /* Custom Apple-like Arrow Cursor */
+  cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 3.5L18.5 14L12 15L14.5 21L12.5 22L10 16L5.5 20V3.5Z' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), auto;
+}
+
+@layer utilities {
+  a, button, [role="button"], input[type="submit"], input[type="button"], label, select, .cursor-pointer {
+    /* Custom Apple-like Hand Pointer with precise 11 4 hotspot offset */
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10.5V5.5C10 4.67157 10.6716 4 11.5 4C12.3284 4 13 4.67157 13 5.5V9.5M13 9.5V8.5C13 7.67157 13.6716 7 14.5 7C15.3284 7 16 7.67157 16 8.5V9.5M16 9.5V9C16 8.17157 16.6716 7.5 17.5 7.5C18.3284 7.5 19 8.17157 19 9V14.5C19 17.5376 16.5376 20 13.5 20H10C6.96243 20 4.5 17.5376 4.5 14.5V11.5C4.5 10.6715 5.17157 10 6 10C6.82843 10 7.5 10.6715 7.5 11.5V12.5' fill='black' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 11 4, pointer !important;
+  }
 }
 
 @keyframes marquee {

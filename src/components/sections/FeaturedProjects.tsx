@@ -1,127 +1,167 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import * as motion from 'framer-motion/client';
 import { projects } from '@/data/projects';
-import { SectionTitle } from '../ui/SectionTitle';
+import { ShieldCheck, Heart, Share2, Square, ChevronRight, ChevronLeft, Phone, Play } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { MapPin, ArrowRight, Expand, Zap, CheckCircle2 } from 'lucide-react';
 
 export default function FeaturedProjects() {
+  const [activeProject, setActiveProject] = useState(projects[0]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const getPrice = (highlights: string[]) => {
+    const priceHighlight = highlights.find(h => h.includes('₹') || h.toLowerCase().includes('lakhs') || h.toLowerCase().includes('cr'));
+    if (priceHighlight) {
+      const match = priceHighlight.match(/₹[\d\.]+\s*(Lakhs|Cr)?/i);
+      return match ? match[0] : 'on Request';
+    }
+    return 'on Request';
+  };
+
+  const handleProjectClick = (project: typeof projects[0]) => {
+    setActiveProject(project);
+    setCurrentImageIndex(0);
+  };
+
+  const activeImages = [activeProject.image, ...(activeProject.gallery || [])];
+
+  useEffect(() => {
+    if (activeImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % activeImages.length);
+    }, 3500); // Auto-slide every 3.5 seconds
+    return () => clearInterval(interval);
+  }, [activeImages.length, activeProject.id]);
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % activeImages.length);
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + activeImages.length) % activeImages.length);
+  };
+
   return (
-    <section id="projects" className="py-24 bg-white relative">
-      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <SectionTitle 
-            title="New Residential Projects in Panvel"
-            subtitle="Our Projects"
-            alignment="left"
-            className="mb-0"
-          />
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="max-w-md text-gray-600 font-light"
-          >
-            Explore premium yet affordable residential developments designed for modern families and smart investors.
-          </motion.div>
+    <section id="projects" className="py-20 bg-white relative">
+      <div className="container mx-auto px-4 md:px-8 max-w-[1200px]">
+        
+        {/* Header */}
+        <div className="mb-10">
+          <h2 className="text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">Featured Projects in Mumbai</h2>
+          <div className="text-gray-500 text-[15px] flex items-center gap-2">
+            Best Projects in Mumbai to explore <button className="text-[#ea580c] font-medium hover:underline text-[14px]">View All</button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-full"
-            >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-primary-dark)]/80 to-transparent z-10" />
-                <Image 
-                  src={project.image} 
-                  alt={project.name} 
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
-                
-                {/* Badges */}
-                <div className="absolute top-4 left-4 z-20 flex gap-2">
-                  <span className="px-3 py-1 bg-[var(--color-brand-accent)] text-white text-xs font-semibold rounded-full shadow-lg tabular-nums tracking-wide">
-                    New Launch
-                  </span>
+        <div className="flex flex-col lg:flex-row gap-8">
+          
+          {/* Thumbnails Sidebar */}
+          <div className="w-full lg:w-[22%] flex lg:flex-col gap-4 overflow-x-auto lg:overflow-y-auto lg:h-[480px] snap-x lg:snap-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {projects.slice(0, 5).map((project) => (
+              <button
+                key={project.id}
+                onClick={() => handleProjectClick(project)}
+                className={`snap-start shrink-0 flex flex-col items-start w-[160px] lg:w-full text-left transition-all duration-300 group ${activeProject.id === project.id ? 'opacity-100' : 'opacity-70 hover:opacity-100'}`}
+              >
+                <div className={`relative w-full aspect-[4/3] rounded-xl overflow-hidden transition-all duration-300 mb-2 ${activeProject.id === project.id ? 'ring-2 ring-offset-2 ring-gray-200' : ''}`}>
+                  <Image fill src={project.image} alt={project.name} className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                
-                {/* Title Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <h3 className="text-2xl font-heading font-semibold text-white mb-1 group-hover:text-[var(--color-brand-accent)] transition-colors">
-                    {project.name}
-                  </h3>
-                  <div className="flex items-center text-white/80 text-sm">
-                    <MapPin size={14} className="mr-1 text-[var(--color-brand-accent)]" /> 
-                    Panvel, Navi Mumbai
-                  </div>
-                </div>
-              </div>
+                <h4 className={`text-[14px] px-1 ${activeProject.id === project.id ? 'font-bold text-gray-900' : 'font-medium text-gray-500'}`}>
+                  {project.name}
+                </h4>
+              </button>
+            ))}
+          </div>
 
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-grow bg-white relative">
-                 <div className="absolute -top-6 right-6 z-30 w-12 h-12 bg-[var(--color-brand-primary)] text-[var(--color-brand-accent)] rounded-full flex items-center justify-center shadow-xl group-hover:bg-[var(--color-brand-accent)] group-hover:text-white transition-colors duration-300">
-                    <ArrowRight size={20} className="-rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+          {/* Master View */}
+          <div className="w-full lg:w-[78%] bg-[#FDF7F4] rounded-2xl p-2.5 flex flex-col md:flex-row relative lg:h-[480px]">
+            
+            {/* Display Image Container */}
+            <div className="relative w-full md:w-[63%] h-[300px] md:h-full rounded-[12px] overflow-hidden group/image">
+               <Image fill src={activeImages[currentImageIndex]} alt={activeProject.name} className="object-cover" />
+               {/* Controls overlaid */}
+               <div className="absolute top-4 left-4 z-10 w-9 h-9 bg-white/30 backdrop-blur-md flex items-center justify-center rounded-md cursor-pointer hover:bg-white/50 transition border border-white/40 shadow-sm">
+                  <Play size={16} className="text-white ml-0.5" fill="white" />
+               </div>
+               
+               {/* Carousel Arrows Inside Image bounds */}
+               {activeImages.length > 1 && (
+                 <div className="absolute inset-y-0 w-full flex justify-between items-center px-4 pointer-events-none z-10 opacity-0 group-hover/image:opacity-100 transition-opacity">
+                   <button onClick={handlePrevImage} className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white pointer-events-auto hover:bg-black transition shadow-sm border border-black/20">
+                      <ChevronLeft size={20} />
+                   </button>
+                   <button onClick={handleNextImage} className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white pointer-events-auto hover:bg-black transition shadow-sm border border-black/20">
+                      <ChevronRight size={20} />
+                   </button>
+                 </div>
+               )}
+            </div>
+
+            {/* Info Panel Container */}
+            <div className="w-full md:w-[37%] bg-white rounded-[12px] flex flex-col relative h-full">
+               
+               {/* Arrow protruding Right */}
+               <button className="absolute top-1/2 -right-6 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.08)] flex items-center justify-center border border-gray-100 text-gray-800 z-20 hover:text-[#ea580c] transition-colors hidden lg:flex">
+                 <ChevronRight size={22} />
+               </button>
+
+               <div className="p-6 md:p-8 flex flex-col h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                 <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-white border border-gray-100 shadow-sm rounded-full flex items-center justify-center p-1.5 overflow-hidden">
+                       <Image src="/logo.png" width={40} height={40} className="object-contain opacity-70" alt="logo" />
+                    </div>
+                    <div>
+                      <h5 className="text-[12px] font-bold text-gray-800 leading-tight">Navi Mumbai Realty</h5>
+                      <p className="text-[11px] text-[#ea580c] cursor-pointer hover:underline">View All Projects</p>
+                    </div>
                  </div>
 
-                {/* Configurations */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-3">
-                     <Expand size={16} className="text-gray-400" />
-                     <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Configurations</h4>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.configurations.map(conf => (
-                      <span key={conf} className="px-3 py-1 bg-gray-50 border border-gray-100 text-[var(--color-brand-primary)] text-sm rounded-md font-medium">
-                        {conf}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                 <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-1.5 pr-2">{activeProject.name}</h3>
+                 <p className="text-[12px] text-gray-500 mb-5 leading-relaxed">at {activeProject.configurations.join(', ')}</p>
 
-                {/* Highlights */}
-                <div className="mb-8 flex-grow">
-                   <div className="flex items-center gap-2 mb-3">
-                     <Zap size={16} className="text-gray-400 focus:fill-[var(--color-brand-accent)]" />
-                     <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Project Highlights</h4>
-                  </div>
-                  <ul className="space-y-3">
-                    {project.highlights.map((highlight, i) => (
-                      <li key={i} className="flex items-start text-sm text-gray-600">
-                        <CheckCircle2 size={16} className="text-[var(--color-brand-accent)] mr-2 mt-0.5 shrink-0" />
-                        <span className="leading-snug">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                 <span className="inline-flex items-center text-[10px] font-bold text-gray-800 bg-white px-2.5 py-1 rounded-full border border-gray-200 uppercase tracking-wide w-max mb-8 shadow-sm">
+                    <ShieldCheck size={12} className="mr-1 text-black" /> RERA Verified
+                 </span>
 
-                {/* CTA */}
-                <Link href={`/projects/${project.slug}`} className="block mt-auto">
-                  <Button variant="outline" className="w-full justify-between group/btn">
-                    View Details
-                    <ArrowRight size={18} className="text-[var(--color-brand-accent)] group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="mt-16 text-center">
-            <Button size="lg" className="px-10">View All Properties</Button>
+                 <div className="space-y-4 mb-4 flex-grow">
+                    {activeProject.configurations.length > 0 && (
+                       <p className="text-[13px] text-gray-700">{activeProject.configurations.join(', ')} Apartment</p>
+                    )}
+                    {activeProject.highlights.slice(0, 2).map((h, i) => (
+                      <p key={i} className="text-[13px] text-gray-700">{h.replace(/Starting From ₹[\d\.]+\s*(Lakhs|Cr)?/i, "").trim()}</p>
+                    ))}
+                 </div>
+
+                 <div className="mt-auto">
+                    <div className="flex items-baseline gap-1.5 mb-5 flex-wrap">
+                       <span className="text-[14px] text-gray-500 font-semibold">INR</span>
+                       <strong className="text-[22px] font-bold text-gray-900 tracking-tight">{getPrice(activeProject.highlights).replace('₹', '').trim()}</strong>
+                       <span className="text-[14px] text-gray-500">Onwards</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 mb-6">
+                       <Button className="flex-1 bg-gray-900 hover:bg-black text-white rounded-full h-[46px] font-semibold text-[14px]">
+                          <Phone size={16} className="mr-2" /> Contact Now
+                       </Button>
+                       <button className="w-[46px] h-[46px] rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-500 hover:bg-red-50 transition-colors shrink-0">
+                          <Heart size={20} />
+                       </button>
+                    </div>
+
+                    <div className="flex items-center justify-between px-1">
+                       <button className="flex items-center text-[12px] font-medium text-gray-500 hover:text-gray-900 transition-colors">
+                          <Square size={14} className="mr-1.5" /> Add to compare
+                       </button>
+                       <button className="flex items-center text-[12px] font-medium text-gray-500 hover:text-gray-900 transition-colors">
+                          <Share2 size={14} className="mr-1.5" /> Share Details
+                       </button>
+                    </div>
+                 </div>
+               </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </section>
