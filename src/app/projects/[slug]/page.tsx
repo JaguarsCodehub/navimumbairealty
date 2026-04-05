@@ -7,7 +7,7 @@ import { projects } from '@/data/projects';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Button, cn } from '@/components/ui/Button';
-import { MapPin, ArrowLeft, CheckCircle2, Phone, Download, ChevronRight, ChevronLeft, ZoomIn, ZoomOut, RotateCcw, Loader2, CheckCircle } from 'lucide-react';
+import { MapPin, ArrowLeft, CheckCircle2, Phone, Download, ChevronRight, ChevronLeft, ZoomIn, ZoomOut, RotateCcw, Loader2, CheckCircle, MessageCircle } from 'lucide-react';
 import * as motion from 'framer-motion/client';
 import Image from 'next/image';
 import { submitToGoogleSheets } from '@/utils/formSubmit';
@@ -229,6 +229,36 @@ export default function ProjectDetail() {
                       </ul>
                     </div>
                   </div>
+
+                  {/* Detailed Description Section */}
+                  <div className="pt-10 mt-10 border-t border-gray-100">
+                    <h3 className="text-2xl font-heading font-bold text-[var(--color-brand-primary)] mb-5">
+                      About {project.name}
+                    </h3>
+                    <div className="prose prose-gray max-w-none">
+                      <p className="text-gray-600 leading-relaxed mb-4 text-base md:text-lg">
+                        Welcome to <strong className="text-gray-800">{project.name}</strong>, an exceptional residential enclave designed to elevate your living experience in Navi Mumbai. Combining modern architecture with thoughtful spatial planning, this project offers the perfect harmony of comfort, convenience, and luxury. Each residence is meticulously crafted to maximize natural light and ensure excellent cross-ventilation, promising a vibrant and healthy living environment.
+                      </p>
+                      <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                        Strategically located to provide seamless connectivity to major transport hubs, emerging business districts, and essential social infrastructure, {project.name} brings the city closer to you. Whether it's enjoying peaceful moments in our landscaped gardens or taking advantage of premium lifestyle amenities, this development represents both an ideal investment opportunity and the perfect dream home for modern urban dwellers.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Amenities Section */}
+                  <div className="pt-10 mt-10 border-t border-gray-100">
+                     <h3 className="text-2xl font-heading font-bold text-[var(--color-brand-primary)] mb-6">Premium Amenities</h3>
+                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {['Clubhouse', 'Swimming Pool', 'Gymnasium', 'Landscaped Gardens', 'Children\'s Play Area', '24/7 Security', 'Power Backup', 'Senior Citizen Area'].map((amenity, i) => (
+                          <div key={i} className="bg-gray-50 p-5 rounded-2xl border border-gray-100 flex flex-col items-center justify-center text-center gap-3 hover:border-[var(--color-brand-accent)]/40 hover:shadow-md transition-all group">
+                             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm text-[var(--color-brand-accent)] group-hover:scale-110 transition-transform">
+                               <CheckCircle size={24} strokeWidth={1.5} />
+                             </div>
+                             <span className="text-sm font-semibold text-gray-700">{amenity}</span>
+                          </div>
+                        ))}
+                     </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -298,10 +328,13 @@ export default function ProjectDetail() {
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-gray-100 space-y-3">
-                  <a href="tel:+918692951226" className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] font-medium hover:bg-[var(--color-brand-primary)]/10 transition-colors">
+                  <a href="tel:+918692951226" className="flex items-center justify-center gap-2 w-full px-4 py-3.5 rounded-xl bg-[var(--color-brand-primary)]/5 text-[var(--color-brand-primary)] font-bold hover:bg-[var(--color-brand-primary)]/10 transition-colors">
                     <Phone size={18} /> Call Us Now
                   </a>
-                  <button className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-colors">
+                  <a href={`https://wa.me/918692951226?text=Hi, I am interested in knowing more about ${project.name}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full px-4 py-3.5 rounded-xl bg-[#25D366]/10 text-[#075E54] font-bold hover:bg-[#25D366]/20 transition-colors border border-[#25D366]/20 shadow-sm shadow-[#25D366]/5">
+                    <MessageCircle size={20} className="text-[#25D366]" /> Chat on WhatsApp
+                  </a>
+                  <button className="flex items-center justify-center gap-2 w-full px-4 py-3.5 rounded-xl border border-gray-200 text-gray-600 font-bold hover:border-gray-300 hover:bg-gray-50 transition-colors">
                     <Download size={18} /> Download Brochure
                   </button>
                 </div>

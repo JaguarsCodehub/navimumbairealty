@@ -51,7 +51,7 @@ export default function Hero() {
             Find Your Dream Home on Navi Mumbai Realty
           </h1>
           <p className="text-white/90 font-medium md:text-lg drop-shadow">
-            Over <span className="font-bold text-white">40K+</span> properties worth 3 Billion Dollars sold with <span className="font-bold text-white">0%</span> brokerage!
+            <span className="font-bold text-white">500+</span> Families served
           </p>
         </motion.div>
 
