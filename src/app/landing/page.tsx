@@ -27,6 +27,74 @@ const FOMO_MESSAGES = [
   { icon: TrendingUp, text: "🔥 Only 4 Units Left! Price Hike of ₹2 Lakhs from April 1st. Book Now!", color: "text-white" },
 ];
 
+const PROJECTS = [
+  {
+    name: "Dream City Panvel",
+    config: "1RK, 1BHK, 2BHK",
+    location: "Expressway Touch",
+    details: [
+      "🚆 15-18 Min Panvel Station",
+      "🎓 Near Amity University",
+      "🌿 Nature Living Township",
+    ],
+    cta: "Book Free Site Visit",
+    image: "/images/dream-city/0001.jpg",
+    badge: "Fast Selling"
+  },
+  {
+    name: "Vistara Garden",
+    config: "1RK to 3BHK Flats",
+    location: "G+7 Tower",
+    details: [
+      "🚆 8-9 Min from Station",
+      "🏥 Near Hospital & University",
+      "🌿 Premium Lifestyle Living",
+    ],
+    cta: "Get Details Now",
+    image: "/images/vistara-garden/Vistara Garden SALE BROCHURE (Future Expansion) R1 (1)_page-0002.jpg",
+    badge: "Modern Living"
+  },
+  {
+    name: "Vistara Panvel",
+    config: "1RK, 1BHK, 2BHK, 3BHK",
+    location: "Prime Location",
+    details: [
+      "🚆 8-9 Min Connectivity",
+      "✈️ 15 Min to Airport",
+      "🏙️ Close to Market & Schools",
+    ],
+    cta: "Call Now",
+    image: "/images/vistara-world/0001.jpg",
+    badge: "Prime Choice"
+  },
+  {
+    name: "Jai Malhar (Phase 4)",
+    config: "1BHK & 2BHK",
+    location: "Panvel (Shedung)",
+    details: [
+      "🏢 G+7 Tower",
+      "📅 Possession Dec 2027",
+      "👨‍👩‍👧 100+ Families Living",
+    ],
+    cta: "Book Your Unit",
+    image: "/images/jai-malhar/e-JaiMalharPhaseIV-1 (1)_page-0001.jpg",
+    badge: "Trusted Community"
+  },
+  {
+    name: "Khopoli Project (Star)",
+    config: "1BHK ₹21.99L (All Inclusive)",
+    location: "Fully Furnished",
+    details: [
+      "🚆 2 Min Walk Station",
+      "💰 Booking ₹51,000 Only",
+      "🌿 Nature Living",
+    ],
+    cta: "Call Now | Limited Units",
+    image: "/images/shanmukhi/0001.jpg",
+    badge: "Best Value"
+  },
+];
+
 export default function LandingPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -34,7 +102,6 @@ export default function LandingPage() {
     firstName: "",
     lastName: "",
     phone: "",
-    interest: "",
   });
 
   const handleChange = (
@@ -53,7 +120,6 @@ export default function LandingPage() {
       (window as any).dataLayer.push({
         event: "lead_form_submit",
         form_location: "landing_page",
-        project_interest: formData.interest,
       });
     }
 
@@ -185,13 +251,13 @@ export default function LandingPage() {
 
               <motion.h1 
                 variants={itemVariants}
-                className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight mb-5"
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.2] tracking-tight mb-5"
               >
-                Find Your Dream Home in{" "}
+                आपलं हक्काचं घर <br />
+                आपके हक का घर <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E87C24] to-[#F59B4E]">
-                  Navi Mumbai
-                </span>{" "}
-                — Before It&apos;s Gone
+                  Your Dream Home Starts Here
+                </span> 🏠
               </motion.h1>
 
               <motion.p 
@@ -211,20 +277,6 @@ export default function LandingPage() {
                   </li>
                 ))}
               </motion.ul>
-
-              {/* Trust badges */}
-              <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {TRUST_BADGES.map(({ icon: Icon, label, sub }) => (
-                  <div
-                    key={label}
-                    className="bg-white/5 border border-white/10 rounded-xl p-3 text-center hover:border-[#E87C24]/40 transition-colors"
-                  >
-                    <Icon size={22} className="text-[#E87C24] mx-auto mb-1.5" />
-                    <div className="text-white font-semibold text-xs leading-tight">{label}</div>
-                    <div className="text-gray-400 text-[10px] mt-0.5">{sub}</div>
-                  </div>
-                ))}
-              </motion.div>
 
               {/* Social proof */}
               <motion.div variants={itemVariants} className="mt-8 flex items-center gap-4 text-sm text-gray-400">
@@ -265,10 +317,10 @@ export default function LandingPage() {
                 <div className="relative z-10">
                   <div className="mb-5">
                     <h2 className="text-2xl font-bold text-[#0B1F3A] leading-tight">
-                      Get a Free Callback
+                      Register for a FREE entry today !
                     </h2>
                     <p className="text-gray-500 text-sm mt-1">
-                      Our property expert will call you within 5 minutes.
+                      Get instant access to top verified property deals and expert guidance.
                     </p>
                   </div>
 
@@ -323,31 +375,7 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label htmlFor="interest" className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Project of Interest *
-                      </label>
-                      <select
-                        id="interest"
-                        required
-                        value={formData.interest}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#E87C24]/40 focus:border-[#E87C24] transition-all text-[#0B1F3A] text-sm bg-gray-50"
-                      >
-                        <option value="" disabled>— Select a project —</option>
-                        <option value="vistara-world">Vistara World</option>
-                        <option value="vistara-garden">Vistara Garden</option>
-                        <option value="dream-city">Dream City</option>
-                        <option value="vrundavan-residency">Vrundavan Residency</option>
-                        <option value="nandanvan-heights">Nandanvan Heights</option>
-                        <option value="urban-rain-forest">Urban Rain Forest</option>
-                        <option value="jai-malhar-apartments">Jai Malhar Apartments</option>
-                        <option value="gokul-heights">Gokul Heights</option>
-                        <option value="bright-enclave">Bright Enclave</option>
-                        <option value="shanmukhi">Shanmukhi</option>
-                        <option value="general">General Inquiry</option>
-                      </select>
-                    </div>
+
 
                     <button
                       type="submit"
@@ -365,11 +393,6 @@ export default function LandingPage() {
                         </>
                       )}
                     </button>
-
-                    <p className="text-center text-xs text-gray-400 leading-relaxed">
-                      By submitting, you agree to be contacted by our team.
-                      <br />No spam. No obligation. 100% free.
-                    </p>
                   </form>
 
                   {/* WhatsApp CTA */}
@@ -388,6 +411,100 @@ export default function LandingPage() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </section>
+
+        {/* ── Our Projects Section ── */}
+        <section className="py-20 bg-[#050F1D] overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 md:px-12">
+            
+            {/* Trust Strip */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 mb-16 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 left-0 w-1 h-full bg-[#E87C24]" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                {[
+                  "Booking Starts @ ₹51,000 Only",
+                  "All Projects RERA Approved",
+                  "All Nationalised Bank Loans Available",
+                  "1RK ₹25L | 1BHK ₹33L Starting"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle size={20} className="text-[#E87C24] shrink-0" />
+                    <span className="text-white font-semibold text-sm md:text-base">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <p className="text-[#E87C24] font-semibold text-sm uppercase tracking-widest mb-2">Featured Collection</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">Our Featured Projects</h2>
+            </motion.div>
+
+            {/* Project Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {PROJECTS.map((project, idx) => (
+                <motion.div
+                  key={project.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden group hover:border-[#E87C24]/30 transition-all duration-300"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <Image 
+                      src={project.image} 
+                      alt={project.name} 
+                      fill 
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute top-4 right-4 bg-[#E87C24] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                      {project.badge}
+                    </div>
+                    <div className="absolute bottom-4 left-4">
+                      <h3 className="text-xl font-bold text-white mb-1">{project.name}</h3>
+                      <div className="flex items-center gap-2 text-white/90 text-sm">
+                        <span>🏡 {project.config}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-[#E87C24] text-sm font-medium mb-4">
+                      <span>📍 {project.location}</span>
+                    </div>
+                    <ul className="space-y-2.5 mb-8">
+                      {project.details.map((detail, i) => (
+                        <li key={i} className="text-gray-400 text-sm flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-gray-600" />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <a
+                      href="tel:+918692951226"
+                      className="block w-full text-center bg-white/5 border border-white/10 hover:bg-[#E87C24] hover:border-[#E87C24] text-white font-bold py-3.5 rounded-xl transition-all duration-300 text-sm"
+                    >
+                      {project.cta}
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
